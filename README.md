@@ -1,22 +1,12 @@
-# btlthaycop
-THeo DÕI GIÁ TRỊ CỦA các loại xe honda
-    Cơ sở dữ liệu:
+# bt quản lý nhiệt độ thông minh 
+Các Thành Phần Chính Cảm Biến Nhiệt Độ :
 
-    Bảng: Player: Lưu thông tin về cầu thủ, bao gồm ID (PK), tên xe,loại xe, mã xe, giá trị xe.
-    Stored Procedures (SP_): SP_GetTopPlayers: Lấy thông tin của loại xe cao nhất.
-
-    Module đọc dữ liệu: Sử dụng Python và FastAPI để tạo một API để lấy dữ liệu từ trang web chuyên về bóng đá hoặc dịch vụ API như V-BIKE
-
-Mô tả nguồn dữ liệu:
-
-    Sử dụng Web Scraping hoặc lấy dữ liệu qua API của các trang web chuyên về hãng xe honda.
-    Dữ liệu bao gồm thông tin về loại xe và giá trị của các loại xe.
-
-    Node-RED: Xây dựng một chu trình trong Node-RED để tự động gọi API Python để lấy dữ liệu. Sau đó, xử lý dữ liệu và ghi dữ liệu vào cơ sở dữ liệu.
-
-    Web:
-
-    Xây dựng một ứng dụng web để hiển thị dữ liệu từ cơ sở dữ liệu.
-    Hiển thị danh sách các cầu thủ và giá trị chuyển nhượng của họ hoặc biểu đồ các cầu thủ có giá trị chuyển nhượng cao nhất.
-    Sử dụng các công nghệ như HTML, CSS, JavaScript để tạo giao diện web.
-
+Sử dụng một cảm biến giả lập để gửi dữ liệu nhiệt độ định kỳ đến Node-RED. Node-RED:
+Nhận dữ liệu từ cảm biến. Xử lý và chuyển tiếp dữ liệu đến SQL Server. Tạo các luồng xử lý để gửi cảnh báo nếu nhiệt độ vượt quá ngưỡng cho phép. SQL Server:
+Lưu trữ dữ liệu nhiệt độ nhận được từ Node-RED. Lưu trữ thông tin các phòng và các ngưỡng nhiệt độ cho phép. Python FastAPI:
+Xây dựng API để truy xuất dữ liệu nhiệt độ từ SQL Server. Cung cấp endpoint để cập nhật ngưỡng nhiệt độ cho phép của các phòng. Cung cấp endpoint để lấy dữ liệu lịch sử nhiệt độ. Giao Diện Người Dùng (Optional):
+Một giao diện web đơn giản để hiển thị dữ liệu nhiệt độ theo thời gian thực và cài đặt ngưỡng nhiệt độ. Các Bước Triển Khai
+Thiết Lập Node-RED Cài đặt Node-RED. Tạo luồng để nhận dữ liệu từ cảm biến (có thể sử dụng node inject để giả lập dữ liệu). Sử dụng node mssql để gửi dữ liệu đến SQL Server.
+Cấu Hình SQL Server Tạo các bảng cần thiết: Rooms, TemperatureReadings, Thresholds. Thiết lập kết nối từ Node-RED đến SQL Server.
+Phát Triển FastAPI Cài đặt FastAPI và các thư viện cần thiết (fastapi, pydantic, sqlalchemy). Xây dựng các endpoint: GET /temperatures: Lấy dữ liệu nhiệt độ hiện tại. GET /temperatures/history: Lấy dữ liệu lịch sử nhiệt độ. POST /thresholds: Cập nhật ngưỡng nhiệt độ cho phép. Kết nối FastAPI với SQL Server sử dụng SQLAlchemy hoặc các thư viện tương tự.
+(Optional) Xây Dựng Giao Diện Người Dùng Sử dụng HTML/CSS/JavaScript để xây dựng giao diện đơn giản. Hiển thị dữ liệu nhiệt độ theo thời gian thực (sử dụng thư viện như Chart.js). Tạo form để cập nhật ngưỡng nhiệt độ.
