@@ -1,0 +1,116 @@
+[
+    {
+        "id": "80ea3b8f53cb1712",
+        "type": "tab",
+        "label": "Insert SQL Data",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "77eb35c9f57051b1",
+        "type": "inject",
+        "z": "80ea3b8f53cb1712",
+        "name": "Trigger",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{}",
+        "payloadType": "json",
+        "x": 90,
+        "y": 160,
+        "wires": [
+            [
+                "40d8a8ea2926284c"
+            ]
+        ]
+    },
+    {
+        "id": "40d8a8ea2926284c",
+        "type": "http request",
+        "z": "80ea3b8f53cb1712",
+        "name": "Get Random Data",
+        "method": "GET",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "http://127.0.0.1:8000/random-data",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 270,
+        "y": 160,
+        "wires": [
+            [
+                "f89222c50bc6b973",
+                "7f6c8269a9aff8b3"
+            ]
+        ]
+    },
+    {
+        "id": "f89222c50bc6b973",
+        "type": "MSSQL",
+        "z": "80ea3b8f53cb1712",
+        "mssqlCN": "cd744b04.8e66d8",
+        "name": "InsertData",
+        "query": "INSERT INTO Sensor_Data (random_id, temperature, humidity, timestamp) VALUES ({{payload.room_id}}, {{payload.temperature}}, {{payload.humidity}}, '{{payload.timestamp}}')\n",
+        "outField": "payload",
+        "x": 590,
+        "y": 160,
+        "wires": [
+            [
+                "9eb6254ed09c4e2a"
+            ]
+        ]
+    },
+    {
+        "id": "9eb6254ed09c4e2a",
+        "type": "debug",
+        "z": "80ea3b8f53cb1712",
+        "name": "Debug Insert",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 790,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "7f6c8269a9aff8b3",
+        "type": "debug",
+        "z": "80ea3b8f53cb1712",
+        "name": "debug 14",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 400,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "cd744b04.8e66d8",
+        "type": "MSSQL-CN",
+        "name": "Your MSSQL Connection",
+        "server": "DESKTOP-7T0Q7H0",
+        "encyption": false,
+        "database": "SensorData"
+    }
+]
